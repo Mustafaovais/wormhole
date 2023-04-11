@@ -103,8 +103,6 @@ const govChain = 1;
 const govAddress =
   "0000000000000000000000000000000000000000000000000000000000000004";
 
-const wormchainIbcReceiverAddress = "0000000000000000000000000000000000000000000000000000000000000000";
-
 async function instantiate(contract, inst_msg, label) {
   var address;
   await wallet
@@ -143,13 +141,8 @@ if (!init_guardians || init_guardians.length === 0) {
   throw "failed to get initial guardians from .env file.";
 }
 
-<<<<<<< HEAD
 addresses["cw_wormhole.wasm"] = await instantiate(
   "cw_wormhole.wasm",
-=======
-addresses["wormhole_ibc.wasm"] = await instantiate(
-  "wormhole_ibc.wasm",
->>>>>>> c8a315973 (Tilt devnet deployment for ibc generic messaging)
   {
     gov_chain: govChain,
     gov_address: Buffer.from(govAddress, "hex").toString("base64"),
@@ -173,11 +166,7 @@ addresses["cw_token_bridge.wasm"] = await instantiate(
   {
     gov_chain: govChain,
     gov_address: Buffer.from(govAddress, "hex").toString("base64"),
-<<<<<<< HEAD
     wormhole_contract: addresses["cw_wormhole.wasm"],
-=======
-    wormhole_contract: addresses["wormhole_ibc.wasm"],
->>>>>>> c8a315973 (Tilt devnet deployment for ibc generic messaging)
     wrapped_asset_code_id: codeIds["cw20_wrapped_2.wasm"],
     chain_id: 18,
     native_denom: "uluna",
@@ -253,14 +242,16 @@ for (const [contract, registrations] of Object.entries(
       .catch((error) => {
         if (error.response) {
           // Request made and server responded
-          console.log(error.response.data, error.response.status, error.response.headers);
+          console.error(error.response.data, error.response.status, error.response.headers);
         } else if (error.request) {
           // The request was made but no response was received
-          console.log(error.request);
+          console.error(error.request);
         } else {
           // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
+          console.error('Error', error.message);
         }
+
+        throw new Error(`Registering chain failed: ${registration}`);
       });
   }
 }
