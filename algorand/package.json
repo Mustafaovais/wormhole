@@ -2,10 +2,10 @@
   "dependencies": {
     "@certusone/wormhole-sdk": "file:../sdk/js",
     "algosdk": "^1.21.0",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5",
     "varint": "^6.0.0",
-    "web3-eth-abi": "^1.7.1"
+    "web3-eth-abi": "^1.10.4"
   },
   "devDependencies": {
     "@types/node": "^17.0.23"
